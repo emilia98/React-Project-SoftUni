@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\EventTracker.Models\EventTracker.Models.csproj" />
+  </ItemGroup>
+
 </Project>

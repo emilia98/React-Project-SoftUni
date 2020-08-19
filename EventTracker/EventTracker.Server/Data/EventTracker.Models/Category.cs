@@ -15,7 +15,5 @@ namespace EventTracker.Models
         [MinLength(2)]
         [StringLength(45)]
         public string NormalizedName { get; set; }
-
-        public bool IsActive { get; set; }
     }
 }

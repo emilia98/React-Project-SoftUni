@@ -7,5 +7,7 @@ namespace EventTracker.Models.Shared
         DateTime CreatedOn { get; set; }
 
         DateTime EditedOn { get; set; }
+
+        bool IsActive { get; set; }
     }
 }
