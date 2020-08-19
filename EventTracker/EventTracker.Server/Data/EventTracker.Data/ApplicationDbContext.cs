@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EventTracker.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventTracker.Data
 {
@@ -7,5 +8,12 @@ namespace EventTracker.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
+        public DbSet<Tag> Tags { get; set; }
     }
 }
