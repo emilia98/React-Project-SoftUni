@@ -1,8 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200819101759_AddCategoryModel.cs" />
+    <Compile Remove="Migrations\20200819101759_AddCategoryModel.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="appsettings.Development.json" />
