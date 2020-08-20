@@ -1,0 +1,11 @@
+.navbar .navbar-nav li {
+    text-align: left;
+}
+
+.navbar .navbar-nav li.menu-title {
+    text-align: center;
+}
+
+#left-panel .navbar {
+    padding-top: 10px;
+}
