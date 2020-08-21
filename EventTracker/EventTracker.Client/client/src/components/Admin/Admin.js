@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import './assets/style.css';
 import './assets/custom.css';
@@ -14,9 +16,11 @@ class Admin extends Component {
         return (
             <div>
                 <Sidebar />
+                
                 <div id="right-panel" className="right-panel">
                     <Header />
                     <div className="content">
+                    <ToastContainer />
                         <Switch>
                             <Route exact path="/admin/tags" component={Tags} />
                             <Route path="/admin/tags/new" component={NewTag} />
