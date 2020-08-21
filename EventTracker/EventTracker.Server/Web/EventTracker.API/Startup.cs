@@ -32,6 +32,17 @@ namespace EventTracker.API
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:3000");
+                });
+            });
+
             services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddControllers();
@@ -66,6 +77,8 @@ namespace EventTracker.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

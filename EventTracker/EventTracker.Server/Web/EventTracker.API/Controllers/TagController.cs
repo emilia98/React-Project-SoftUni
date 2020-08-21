@@ -80,6 +80,63 @@ namespace EventTracker.API.Controllers
 
             return this.Ok("Tag created successfully!");
         }
+
+        [HttpPost("status/change/{id}")]
+        public async Task<IActionResult> ChangeStatus(string id)
+        {
+            bool isIdCorrect = int.TryParse(id, out int tagId);
+
+            if (!isIdCorrect)
+            {
+                return this.NotFound("Tag does not exist!");
+            }
+
+            var tag = this.tagService.GetById(tagId, true);
+
+            if (tag == null)
+            {
+                return this.NotFound("Tag does not exist!");
+            }
+
+            try
+            {
+                await this.tagService.ChangeActiveStatus(tag);
+            }
+            catch(Exception e)
+            {
+                this.logger.LogError(e.Message);
+                this.logger.LogInformation(e.StackTrace);
+                return this.BadRequest("An error occurred while trying to change the status of the tag!");
+            }
+
+            return this.Ok(new
+            {
+                Message = "Successfully changed the status of the tag!",
+                Tag = tag
+            });
+        }
+
+        [HttpGet("edit/{id}")]
+        public IActionResult EditGet(string id)
+        {
+            bool isIdCorrect = int.TryParse(id, out int tagId);
+
+            if (!isIdCorrect)
+            {
+                return this.NotFound("Tag does not exist!");
+            }
+
+            var tag = this.tagService.GetById(tagId, true);
+
+            if (tag == null)
+            {
+                return this.NotFound("Tag does not exist!");
+            }
+
+            return this.Ok(tag);
+        }
+
+        // TODO: Edit Post
     }
 }
 

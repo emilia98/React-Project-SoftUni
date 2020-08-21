@@ -21,6 +21,7 @@ namespace EventTracker.Services
             var category = this.GetById(entity.Id);
 
             category.IsActive = !category.IsActive;
+            category.EditedOn = DateTime.UtcNow;
 
             await this.dbContext.SaveChangesAsync();
         }

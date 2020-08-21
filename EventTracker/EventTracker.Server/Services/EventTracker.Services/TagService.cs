@@ -18,9 +18,10 @@ namespace EventTracker.Services
 
         public async Task ChangeActiveStatus(Tag entity)
         {
-            var tag = this.GetById(entity.Id);
+            // var tag = this.GetById(entity.Id);
 
-            tag.IsActive = !tag.IsActive;
+            entity.IsActive = !entity.IsActive;
+            entity.EditedOn = DateTime.UtcNow;
 
             await this.dbContext.SaveChangesAsync();
         }
