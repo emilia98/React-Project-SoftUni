@@ -34,7 +34,7 @@ namespace EventTracker.Services
         public IEnumerable<Tag> GetAll(bool? withNonActive = false, int? count = null)
         {
             // TODO: Implement this returning specified count of elements
-            return this.dbContext.Tags.Where(t => t.IsActive == !withNonActive.Value);
+            return this.dbContext.Tags.Where(t => (withNonActive == true ? true : t.IsActive == true));
         }
 
         public Tag GetById(int id, bool? withNonActive = false)

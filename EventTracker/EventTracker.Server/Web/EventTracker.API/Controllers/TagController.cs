@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EventTracker.InputModels;
 using EventTracker.Models;
 using EventTracker.Services;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +12,7 @@ using Microsoft.Extensions.Logging;
 namespace EventTracker.API.Controllers
 {
     [Route("admin/[controller]")]
-    [ApiController]
+   // [ApiController]
     public class TagController : ControllerBase
     {
         private readonly ILogger<TagController> logger;
@@ -50,15 +51,17 @@ namespace EventTracker.API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Create(Tag tagData)
+        public async Task<IActionResult> Create(TagInputModel tagData)
         {
-            Console.WriteLine("Name = " + tagData.Name);
-
-            /*
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState.ToDictionary(x => x.Key, x => x.Value.Errors));
+            }
+            
             var tag = new Tag
             {
-                Name = name,
-                NormalizedName = name.ToUpper(),
+                Name = tagData.Name,
+                NormalizedName = tagData.Name.ToUpper(),
                 CreatedOn = DateTime.UtcNow,
                 EditedOn = DateTime.UtcNow,
                 IsActive = true
@@ -70,8 +73,10 @@ namespace EventTracker.API.Controllers
             }
             catch(Exception e)
             {
-                // return this.Problem("")
-            }*/
+                this.logger.LogError(e.Message);
+                this.logger.LogInformation(e.StackTrace);
+                return this.BadRequest("An error occurred while trying to create a tag!");
+            }
 
             return this.Ok("Tag created successfully!");
         }

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\EventTracker.Data\EventTracker.Data.csproj" />
+    <ProjectReference Include="..\..\Data\EventTracker.InputModels\EventTracker.InputModels.csproj" />
     <ProjectReference Include="..\..\Services\EventTracker.Services\EventTracker.Services.csproj" />
   </ItemGroup>
 
