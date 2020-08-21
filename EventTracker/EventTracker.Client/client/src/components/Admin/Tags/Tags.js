@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import TagRow from './Shared/TagRow';
 
 class Tags extends Component {
     state = {
@@ -9,26 +10,19 @@ class Tags extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5001/admin/tag')
+        axios.get('https://localhost:5001/admin/tag')
             .then((response) => {
                 this.setState({
                     tags: response.data
-                })
-            })
-            .catch(error => {
-                toast.error(error.message, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
                 });
             })
+            .catch(error => {
+                toast.error(error.message);
+            });
     }
 
     render() {
+        console.log(this.state.tags);
         return (
             <React.Fragment>
                 <h1 className="admin-page-title">
@@ -55,54 +49,9 @@ class Tags extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td><span>Music</span> </td>
-                                    <td><span>MUSIC</span> </td>
-                                    <td><span>21.08.2020 18:45:22</span></td>
-                                    <td><span>21.08.2020 18:45:22</span></td>
-                                    <td>
-                                        <span className="badge badge-complete">Complete</span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            <Link className="action-btn" to="/admin/tags/edit/id">
-                                                <i className="fa fa-pencil" aria-hidden="true"></i>
-                                            </Link>
-                                            <Link className="action-btn" to="/admin/tags/change/status/id">
-                                                <i className="fa fa-ban" aria-hidden="true"></i>
-                                            </Link>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td><span>Music</span> </td>
-                                    <td><span>MUSIC</span> </td>
-                                    <td><span>21.08.2020 18:45:22</span></td>
-                                    <td><span>21.08.2020 18:45:22</span></td>
-                                    <td>
-                                        <span className="badge badge-complete">Complete</span>
-                                    </td>
-                                </tr><tr>
-                                    <td>1.</td>
-                                    <td><span>Music</span> </td>
-                                    <td><span>MUSIC</span> </td>
-                                    <td><span>21.08.2020 18:45:22</span></td>
-                                    <td><span>21.08.2020 18:45:22</span></td>
-                                    <td>
-                                        <span className="badge badge-complete">Complete</span>
-                                    </td>
-                                </tr><tr>
-                                    <td>1.</td>
-                                    <td><span>Music</span> </td>
-                                    <td><span>MUSIC</span> </td>
-                                    <td><span>21.08.2020 18:45:22</span></td>
-                                    <td><span>21.08.2020 18:45:22</span></td>
-                                    <td>
-                                        <span className="badge badge-complete">Complete</span>
-                                    </td>
-                                </tr>
+                            {this.state.tags.map((tag) => (
+                                    <TagRow tag={tag} />
+                                ))}
                             </tbody>
                         </table>
                     </div>
