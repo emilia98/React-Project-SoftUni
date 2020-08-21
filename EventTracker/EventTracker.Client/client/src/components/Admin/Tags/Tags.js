@@ -48,9 +48,11 @@ class Tags extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                            {this.state.tags.map((tag) => (
+                            {
+                                this.state.tags.map((tag) => 
                                     <TagRow tag={tag} />
-                                ))}
+                                )
+                            }
                             </tbody>
                         </table>
                     </div>

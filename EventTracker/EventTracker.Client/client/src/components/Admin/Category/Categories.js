@@ -1,7 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import CategoryRow from './Shared/CategoryRow';
 
 class Categories extends Component {
+    state = {
+        categories: []
+    }
+
+    componentDidMount() {
+        axios.get('https://localhost:5001/admin/category/')
+        .then(response => {
+            this.setState({
+                categories: response.data
+            });
+        })
+        .catch(error => {
+            toast.error(error.message);
+        })
+    }
     
     render() {
         return (
@@ -30,6 +48,11 @@ class Categories extends Component {
                                 </tr>
                             </thead>
                             <tbody>
+                                {
+                                    this.state.categories.map((category) => 
+                                        <CategoryRow category={category} />
+                                    )
+                                }
                             </tbody>
                         </table>
                     </div>
