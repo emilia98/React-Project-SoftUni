@@ -10,6 +10,9 @@ import Sidebar from './Shared/Sidebar';
 import Tags from './Tags/Tags';
 import NewTag from './Tags/NewTag';
 import EditTag from './Tags/EditTag';
+import Categories from './Category/Categories';
+import NewCategory from './Category/NewCategory';
+import EditCategory from './Category/EditCategory';
 
 class Admin extends Component {
     render() {
@@ -25,6 +28,9 @@ class Admin extends Component {
                             <Route exact path="/admin/tags" component={Tags} />
                             <Route path="/admin/tags/new" component={NewTag} />
                             <Route path="/admin/tags/edit/:id" component={EditTag} />
+                            <Route exact path="/admin/categories" component={Categories} />
+                            <Route path="/admin/categories/new" component={NewCategory} />
+                            <Route path="/admin/categories/edit/:id" component={EditCategory} />
                         </Switch>
                     </div>
                 </div>

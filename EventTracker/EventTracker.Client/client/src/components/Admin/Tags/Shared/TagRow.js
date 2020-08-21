@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const TagRow = (props) => {
     const [tagState, setTagState] = useState(props.tag);
@@ -10,6 +11,7 @@ const TagRow = (props) => {
             ...prevState,
             isActive: !prevState.isActive
         }));
+        toast.success("Successfully changed the status of tag!");
     }
 
     return (

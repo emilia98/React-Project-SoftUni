@@ -1,33 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import TagRow from './Shared/TagRow';
 
-class Tags extends Component {
-    state = {
-        tags: []
-    }
-
-    componentDidMount() {
-        axios.get('https://localhost:5001/admin/tag')
-            .then((response) => {
-                this.setState({
-                    tags: response.data
-                });
-            })
-            .catch(error => {
-                toast.error(error.message);
-            });
-    }
-
+class Categories extends Component {
+    
     render() {
         return (
             <React.Fragment>
                 <h1 className="admin-page-title">
-                    <span className="page-title">Tags - All</span>
+                    <span className="page-title">Category - All</span>
                     <span className="new-button">
-                        <Link className="btn btn-success" to="/admin/tags/new">New Tag</Link>
+                        <Link className="btn btn-success" to="/admin/categories/new">New Category</Link>
                     </span>
                 </h1>
                 <div className="card">
@@ -48,17 +30,13 @@ class Tags extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                            {this.state.tags.map((tag) => (
-                                    <TagRow tag={tag} />
-                                ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </React.Fragment>
-
         )
     }
 }
 
-export default Tags;
+export default Categories;
