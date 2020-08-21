@@ -9,3 +9,40 @@
 #left-panel .navbar {
     padding-top: 10px;
 }
+
+.order-table tr td:last-child, .order-table tr th:last-child {
+    text-align: center;
+}
+
+.action-btn {
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5em;
+    background: rgb(239, 239, 239);
+    padding: 2px 7px;
+    margin: 0 5px;
+}
+
+.action-btn:hover {
+    cursor: pointer;
+    color: blueviolet;
+}
+
+.action-btn i {
+    margin: 1px 2px;
+}
+
+.admin-page-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.page-title, .new-button {
+    display: grid;
+}
+
+.new-button {
+    margin-left: 10px;
+}
