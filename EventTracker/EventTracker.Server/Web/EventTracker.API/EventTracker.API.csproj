@@ -10,10 +10,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\EventTracker.Data\EventTracker.Data.csproj" />
+    <ProjectReference Include="..\..\Services\EventTracker.Services\EventTracker.Services.csproj" />
   </ItemGroup>
 
 

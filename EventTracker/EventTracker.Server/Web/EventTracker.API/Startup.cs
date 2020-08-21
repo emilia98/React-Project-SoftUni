@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventTracker.Data;
 using EventTracker.Data.Seeding;
+using EventTracker.Models;
+using EventTracker.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +37,9 @@ namespace EventTracker.API
             services.AddControllers();
 
             services.AddSingleton(this.configuration);
+
+            // Application Services
+            services.AddTransient<ITagService<Tag>, TagService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

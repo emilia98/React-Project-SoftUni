@@ -3,12 +3,11 @@ using EventTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EventTracker.Services
 {
-    public class TagService : ICommonService<Tag>
+    public class TagService : ITagService<Tag>
     {
         private readonly ApplicationDbContext dbContext;
 
@@ -17,30 +16,41 @@ namespace EventTracker.Services
             this.dbContext = dbContext;
         }
 
-        public Task ChangeActiveStatus(Tag entity)
+        public async Task ChangeActiveStatus(Tag entity)
         {
-            throw new NotImplementedException();
+            var tag = this.GetById(entity.Id);
+
+            tag.IsActive = !tag.IsActive;
+
+            await this.dbContext.SaveChangesAsync();
         }
 
-        public Task Create(Tag entity)
+        public async Task Create(Tag entity)
         {
-            throw new NotImplementedException();
+            await this.dbContext.Tags.AddAsync(entity);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public IEnumerable<Tag> GetAll(bool? withNonActive = false, int? count = null)
         {
             // TODO: Implement this returning specified count of elements
-            return this.dbContext.Tags.Where(t => t.IsActive == !withNonActive);
+            return this.dbContext.Tags.Where(t => t.IsActive == !withNonActive.Value);
         }
 
         public Tag GetById(int id, bool? withNonActive = false)
         {
-            return this.dbContext.Tags.Where(t => t.Id == id && t.IsActive == !withNonActive).FirstOrDefault();
+            return this.dbContext.Tags.Where(t => t.Id == id && (withNonActive == true ? true : t.IsActive == true)).FirstOrDefault();
         }
 
-        public Task Update(Tag entity)
+        public async Task Update(Tag entity)
         {
-            throw new NotImplementedException();
+            var tag = this.GetById(entity.Id);
+
+            tag.Name = entity.Name;
+            tag.NormalizedName = entity.Name.ToUpper();
+            tag.EditedOn = DateTime.UtcNow;
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }
