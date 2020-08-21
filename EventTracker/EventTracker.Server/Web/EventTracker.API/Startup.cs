@@ -40,6 +40,7 @@ namespace EventTracker.API
 
             // Application Services
             services.AddTransient<ITagService<Tag>, TagService>();
+            services.AddTransient<ICategoryService<Category>, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

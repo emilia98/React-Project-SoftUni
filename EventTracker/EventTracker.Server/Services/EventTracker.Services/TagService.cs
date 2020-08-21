@@ -46,6 +46,11 @@ namespace EventTracker.Services
         {
             var tag = this.GetById(entity.Id);
 
+            if (tag == null)
+            {
+                return;
+            }
+
             tag.Name = entity.Name;
             tag.NormalizedName = entity.Name.ToUpper();
             tag.EditedOn = DateTime.UtcNow;
