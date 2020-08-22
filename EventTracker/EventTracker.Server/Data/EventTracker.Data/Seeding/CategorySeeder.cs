@@ -9,7 +9,7 @@ namespace EventTracker.Data.Seeding
     {
         private static string categoryName = "Music Concerts";
 
-        public async Task SeedAsync(ApplicationDbContext dbContext)
+        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider = null)
         {
             await SeedCategoriesAsync(dbContext);
         }
