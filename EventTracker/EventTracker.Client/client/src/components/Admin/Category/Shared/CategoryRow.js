@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const CategoryRow = (props) => {
     const [ categoryState, setCategoryState ] = useState(props.category);
 
     const changeActiveStatus = () => {
-        setCategoryState(prevState => ({
-            ...prevState,
-            isActive: !categoryState.isActive
-        }));
-        toast.success('Successfully changed the status of the category!');
+        axios({
+            method: 'post',
+            url: `https://localhost:5001/admin/category/status/change/${categoryState.id}`
+        })
+        .then(response => {
+            setCategoryState(prevState => ({
+                ...prevState,
+                editedOn: response.data.category.editedOn,
+                isActive: response.data.category.isActive
+            }));
+            toast.success(response.data.message);
+        })
+        .catch(error => {
+            toast.error(error.message);
+        });
     }
 
     return (
