@@ -7,11 +7,21 @@ const TagRow = (props) => {
     const [tagState, setTagState] = useState(props.tag);
 
     const changeActiveStatus = () => {
-        setTagState((prevState) => ({
-            ...prevState,
-            isActive: !prevState.isActive
-        }));
-        toast.success("Successfully changed the status of tag!");
+        axios({
+            method: 'post',
+            url: `https://localhost:5001/admin/tag/status/change/${tagState.id}`,
+        })
+            .then(response => {
+                setTagState((prevState) => ({
+                    ...prevState,
+                    editedOn: response.data.tag.editedOn,
+                    isActive: response.data.tag.isActive
+                }));
+                toast.success(response.data.message);
+            })
+            .catch(error => {
+                toast.error(error.message);
+            });
     }
 
     return (
@@ -20,7 +30,7 @@ const TagRow = (props) => {
             <td><span>{tagState.name}</span> </td>
             <td><span>{tagState.normalizedName}</span> </td>
             <td><span>21.08.2020 18:45:22</span></td>
-            <td><span>21.08.2020 18:45:22</span></td>
+            <td><span>{tagState.editedOn}</span></td>
             <td>
                 {
                     tagState.isActive
