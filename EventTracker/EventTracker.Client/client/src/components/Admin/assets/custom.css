@@ -46,3 +46,8 @@
 .new-button {
     margin-left: 10px;
 }
+
+.custom-form-button {
+    width: 50%;
+    margin: 5px auto;
+}
