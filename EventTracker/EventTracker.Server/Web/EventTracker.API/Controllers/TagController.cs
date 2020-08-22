@@ -51,7 +51,7 @@ namespace EventTracker.API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Create(TagInputModel tagData)
+        public async Task<IActionResult> Create([FromBody] TagInputModel tagData)
         {
             if (!this.ModelState.IsValid)
             {
