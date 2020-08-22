@@ -45,16 +45,16 @@ namespace EventTracker.Services
 
         public async Task Update(Tag entity)
         {
-            var tag = this.GetById(entity.Id);
+            //var tag = this.GetById(entity.Id);
 
-            if (tag == null)
-            {
-                return;
-            }
+            //if (tag == null)
+            //{
+            //    return;
+            //}
 
-            tag.Name = entity.Name;
-            tag.NormalizedName = entity.Name.ToUpper();
-            tag.EditedOn = DateTime.UtcNow;
+            entity.Name = entity.Name;
+            entity.NormalizedName = entity.Name.ToUpper();
+            entity.EditedOn = DateTime.UtcNow;
 
             await this.dbContext.SaveChangesAsync();
         }

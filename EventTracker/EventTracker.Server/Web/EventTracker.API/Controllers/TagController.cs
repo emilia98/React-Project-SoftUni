@@ -136,7 +136,41 @@ namespace EventTracker.API.Controllers
             return this.Ok(tag);
         }
 
-        // TODO: Edit Post
+        [HttpPost("edit/{id}")]
+        public async Task<IActionResult> EditPost(string id, TagInputModel tagInput)
+        {
+            bool isIdCorrect = int.TryParse(id, out int tagId);
+
+            if (!isIdCorrect)
+            {
+                return this.NotFound("Tag does not exist!");
+            }
+
+            var tag = this.tagService.GetById(tagId, true);
+
+            if (tag == null)
+            {
+                return this.NotFound("Tag does not exist!");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState.ToDictionary(x => x.Key, x => x.Value.Errors));
+            }
+
+            try
+            {
+                await this.tagService.Update(tag);
+            }
+            catch(Exception e)
+            {
+                this.logger.LogError(e.Message);
+                this.logger.LogInformation(e.StackTrace);
+                return this.BadRequest("An error occurred while trying to edit tag!");
+            }
+
+            return this.Ok("Successfully edited tag!");
+        }
     }
 }
 
