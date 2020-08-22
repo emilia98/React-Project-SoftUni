@@ -18,5 +18,9 @@ namespace EventTracker.Data
         public DbSet<Tag> Tags { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Event> Events { get; set; }
+
+        // public DbSet<UserEventWishlist> UserEventWishlists { get; set; }
     }
 }
