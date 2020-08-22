@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.Services
 {
-    public interface ICommonService<TEntity>
+    public interface ICommonService<TEntity, TInputModel>
     {
         Task Create(TEntity entity);
 
@@ -11,7 +11,7 @@ namespace EventTracker.Services
 
         TEntity GetById(int id, bool? withNonActive = false);
 
-        Task Update(TEntity entity);
+        Task Update(TEntity entity, TInputModel inputModel);
 
         Task ChangeActiveStatus(TEntity entity);
     }

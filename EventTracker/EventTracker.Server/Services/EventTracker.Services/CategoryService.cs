@@ -1,4 +1,5 @@
 ﻿using EventTracker.Data;
+using EventTracker.InputModels;
 using EventTracker.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.Services
 {
-    public class CategoryService : ICategoryService<Category>
+    public class CategoryService : ICategoryService<Category, CategoryInputModel>
     {
         private readonly ApplicationDbContext dbContext;
 
@@ -18,10 +19,10 @@ namespace EventTracker.Services
 
         public async Task ChangeActiveStatus(Category entity)
         {
-            var category = this.GetById(entity.Id);
+            // var category = this.GetById(entity.Id);
 
-            category.IsActive = !category.IsActive;
-            category.EditedOn = DateTime.UtcNow;
+            entity.IsActive = !entity.IsActive;
+            entity.EditedOn = DateTime.UtcNow;
 
             await this.dbContext.SaveChangesAsync();
         }
@@ -42,18 +43,18 @@ namespace EventTracker.Services
             return this.dbContext.Categories.Where(c => c.Id == id && (withNonActive == true ? true : c.IsActive == true)).FirstOrDefault();
         }
 
-        public async Task Update(Category entity)
+        public async Task Update(Category entity, CategoryInputModel categoryInput)
         {
-            var category = this.GetById(entity.Id);
+            //var category = this.GetById(entity.Id);
 
-            if (category == null)
-            {
-                return;
-            }
+            //if (category == null)
+            //{
+            //    return false;
+            //}
 
-            category.Name = entity.Name;
-            category.NormalizedName = entity.Name.ToUpper();
-            category.EditedOn = DateTime.UtcNow;
+            entity.Name = categoryInput.Name;
+            entity.NormalizedName = categoryInput.Name.ToUpper();
+            entity.EditedOn = DateTime.UtcNow;
 
             await this.dbContext.SaveChangesAsync();
         }

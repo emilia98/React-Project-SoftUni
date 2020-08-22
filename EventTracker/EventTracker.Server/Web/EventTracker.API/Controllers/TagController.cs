@@ -16,9 +16,9 @@ namespace EventTracker.API.Controllers
     public class TagController : ControllerBase
     {
         private readonly ILogger<TagController> logger;
-        private readonly ITagService<Tag> tagService;
+        private readonly ITagService<Tag, TagInputModel> tagService;
 
-        public TagController(ILogger<TagController> logger, ITagService<Tag> tagService)
+        public TagController(ILogger<TagController> logger, ITagService<Tag, TagInputModel> tagService)
         {
             this.logger = logger;
             this.tagService = tagService;
@@ -137,7 +137,7 @@ namespace EventTracker.API.Controllers
         }
 
         [HttpPost("edit/{id}")]
-        public async Task<IActionResult> EditPost(string id, TagInputModel tagInput)
+        public async Task<IActionResult> EditPost(string id, [FromBody] TagInputModel tagInput)
         {
             bool isIdCorrect = int.TryParse(id, out int tagId);
 
@@ -160,7 +160,7 @@ namespace EventTracker.API.Controllers
 
             try
             {
-                await this.tagService.Update(tag);
+                await this.tagService.Update(tag, tagInput);
             }
             catch(Exception e)
             {

@@ -1,4 +1,5 @@
 ﻿using EventTracker.Data;
+using EventTracker.InputModels;
 using EventTracker.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.Services
 {
-    public class TagService : ITagService<Tag>
+    public class TagService : ITagService<Tag, TagInputModel>
     {
         private readonly ApplicationDbContext dbContext;
 
@@ -43,17 +44,17 @@ namespace EventTracker.Services
             return this.dbContext.Tags.Where(t => t.Id == id && (withNonActive == true ? true : t.IsActive == true)).FirstOrDefault();
         }
 
-        public async Task Update(Tag entity)
+        public async Task Update(Tag entity, TagInputModel tagInput)
         {
             //var tag = this.GetById(entity.Id);
 
             //if (tag == null)
             //{
-            //    return;
+            //    return false;
             //}
 
-            entity.Name = entity.Name;
-            entity.NormalizedName = entity.Name.ToUpper();
+            entity.Name = tagInput.Name;
+            entity.NormalizedName = tagInput.Name.ToUpper();
             entity.EditedOn = DateTime.UtcNow;
 
             await this.dbContext.SaveChangesAsync();

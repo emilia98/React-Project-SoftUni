@@ -1,6 +1,6 @@
 ﻿namespace EventTracker.Services
 {
-    public interface ITagService<TEntity> : ICommonService<TEntity>
+    public interface ITagService<TEntity, TInputModel> : ICommonService<TEntity, TInputModel>
     {
     }
 }
